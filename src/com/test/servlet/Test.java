@@ -15,40 +15,47 @@ import com.test.bean.Coyote;
 
 public class Test extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long  serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static final String ATT_MESSAGE      = "test";
+    public static final String ATT_BEAN         = "coyote";
+    public static final String ATT_LISTE        = "liste";
+    public static final String ATT_JOUR         = "jour";
+    public static final String VUE              = "/WEB-INF/test.jsp";
 
-		/* Création et initialisation du message. */
-		String message = "Message transmis de la servlet à la JSP.";
+    public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 
-		/* Création du bean et initialisation de ses propriétés */
-		Coyote premierBean = new Coyote();
-		premierBean.setNom("Coyote");
-		premierBean.setPrenom("Wile E.");
+        /* Création et initialisation du message. */
+        String message = "Message transmis de la servlet à la JSP.";
 
-		/* Création de la liste et insertion de quatre éléments */
-		List<Integer> premiereListe = new ArrayList<Integer>();
-		premiereListe.add(27);
-		premiereListe.add(12);
-		premiereListe.add(138);
-		premiereListe.add(6);
+        /* Création du bean et initialisation de ses propriétés */
+        Coyote premierBean = new Coyote();
+        premierBean.setNom( "Coyote" );
+        premierBean.setPrenom( "Wile E." );
 
-		/**
-		 * On utilise ici la libraire Joda pour manipuler les dates, pour deux raisons :
-		 * - c'est tellement plus simple et limpide que de travailler avec les objets
-		 * Date ou Calendar ! - c'est (probablement) un futur standard de l'API Java.
-		 */
-		DateTime dt = new DateTime();
-		Integer jourDuMois = dt.getDayOfMonth();
+        /* Création de la liste et insertion de quatre éléments */
+        List<Integer> premiereListe = new ArrayList<Integer>();
+        premiereListe.add( 27 );
+        premiereListe.add( 12 );
+        premiereListe.add( 138 );
+        premiereListe.add( 6 );
 
-		/* Stockage du message, du bean et de la liste dans l'objet request */
-		request.setAttribute("test", message);
-		request.setAttribute("coyote", premierBean);
-		request.setAttribute("liste", premiereListe);
-		request.setAttribute("jour", jourDuMois);
+        /**
+         * On utilise ici la libraire Joda pour manipuler les dates, pour deux
+         * raisons : - c'est tellement plus simple et limpide que de travailler
+         * avec les objets Date ou Calendar ! - c'est (probablement) un futur
+         * standard de l'API Java.
+         */
+        DateTime dt = new DateTime();
+        Integer jourDuMois = dt.getDayOfMonth();
 
-		/* Transmission de la paire d'objets request/response à notre JSP */
-		this.getServletContext().getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
-	}
+        /* Stockage du message, du bean et de la liste dans l'objet request */
+        request.setAttribute( ATT_MESSAGE, message );
+        request.setAttribute( ATT_BEAN, premierBean );
+        request.setAttribute( ATT_LISTE, premiereListe );
+        request.setAttribute( ATT_JOUR, jourDuMois );
+
+        /* Transmission de la paire d'objets request/response à notre JSP */
+        this.getServletContext().getRequestDispatcher( "/WEB-INF/test.jsp" ).forward( request, response );
+    }
 }
