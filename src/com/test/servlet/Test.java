@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,20 +13,14 @@ import org.joda.time.DateTime;
 
 import com.test.bean.Coyote;
 
-@WebServlet("/Test")
 public class Test extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	public Test() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		/* Création et initialisation du message. */
-		String paramAuteur = request.getParameter("auteur");
-		String message = "Transmission de variables : OK ! " + paramAuteur;
+		String message = "Message transmis de la servlet à la JSP.";
 
 		/* Création du bean et initialisation de ses propriétés */
 		Coyote premierBean = new Coyote();
@@ -53,15 +46,9 @@ public class Test extends HttpServlet {
 		request.setAttribute("test", message);
 		request.setAttribute("coyote", premierBean);
 		request.setAttribute("liste", premiereListe);
+		request.setAttribute("jour", jourDuMois);
 
 		/* Transmission de la paire d'objets request/response à notre JSP */
 		this.getServletContext().getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

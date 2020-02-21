@@ -10,6 +10,6 @@
 
 	<servlet-mapping>
 		<servlet-name>Test</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/WEB-INF/test.jsp</url-pattern>
 	</servlet-mapping>
 </web-app>
